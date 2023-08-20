@@ -56,7 +56,7 @@ function App() {
           <Route path="/series" element={layoutWrapper(<Series />)} />
           <Route path="/episodes" element={layoutWrapper(<Episodes />)} />
           <Route path="/seasons" element={layoutWrapper(<Seasons />)} />
-          <Route path="/" element={<Streams />} />
+          <Route path="/" element={layoutWrapper(<Streams />)} />
           <Route path="/genres" element={layoutWrapper(<Genre />)} />
         </>
       </Routes>
