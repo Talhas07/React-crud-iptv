@@ -136,3 +136,7 @@
 .ant-table-thead tr .ant-table-cell {
   text-align: center !important;
 }
+/* to correct the upper list  */
+#root .ant-layout-header ul {
+  height: 63px;
+}
