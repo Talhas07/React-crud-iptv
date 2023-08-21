@@ -1,6 +1,3 @@
-
-
-
 import {
   Typography,
   AppBar,
@@ -18,7 +15,7 @@ function Users() {
   const [editusers, seteditusers] = React.useState(null);
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/users")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/users")
       .then((response) => {
         console.log(response.data);
         setusers(response.data);
@@ -37,9 +34,11 @@ function Users() {
       password: e.target.password.value,
     };
     axios
-      .post("http://localhost:2022/users/registration", user)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/users/registration", user)
       .then(async (res) => {
-        const newdata = await axios.get("http://localhost:2022/users");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/users"
+        );
         setusers(newdata.data);
       })
       .finally(() => {
@@ -51,9 +50,11 @@ function Users() {
   };
   const deleteuser = async (id) => {
     axios
-      .delete("http://localhost:2022/users/" + id)
+      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/users/" + id)
       .then(async (response) => {
-        const newdata = await axios.get("http://localhost:2022/users");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/users"
+        );
         setusers(newdata.data);
       })
       .catch((err) => {
@@ -77,11 +78,18 @@ function Users() {
         password: editusers.password,
       };
 
-      console.log("http://localhost:2022/users/" + editusers._id);
+      console.log(
+        "https://tiny-fly-sweatshirt.cyclic.cloud/users/" + editusers._id
+      );
       axios
-        .patch("http://localhost:2022/users/" + editusers._id, newdata)
+        .patch(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/users/" + editusers._id,
+          newdata
+        )
         .then(async (res) => {
-          const newdata = await axios.get("http://localhost:2022/users/");
+          const newdata = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/users/"
+          );
           setusers(newdata.data);
         })
         .catch((err) => {

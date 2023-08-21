@@ -16,7 +16,7 @@ function Episodes() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/episodes")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/episodes")
       .then((response) => {
         console.log(response.data);
         setepisodes(response.data);
@@ -34,9 +34,11 @@ function Episodes() {
     };
     console.log(episodes);
     axios
-      .post("http://localhost:2022/episodes", episodes)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/episodes", episodes)
       .then(async (res) => {
-        const newdata = await axios.get("http://localhost:2022/episodes");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/episodes"
+        );
         setepisodes(newdata.data);
       })
       .finally(() => {
@@ -46,9 +48,11 @@ function Episodes() {
 
   const deleteepisodes = async (id) => {
     axios
-      .delete("http://localhost:2022/episodes/" + id)
+      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/episodes/" + id)
       .then(async (response) => {
-        const newdata = await axios.get("http://localhost:2022/episodes");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/episodes"
+        );
         setepisodes(newdata.data);
       })
       .catch((err) => {
@@ -70,11 +74,19 @@ function Episodes() {
         description: editepisodes.description,
       };
 
-      console.log("http://localhost:2022/episodes/" + editepisodes._id);
+      console.log(
+        "https://tiny-fly-sweatshirt.cyclic.cloud/episodes/" + editepisodes._id
+      );
       axios
-        .patch("http://localhost:2022/episodes/" + editepisodes._id, newdata)
+        .patch(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/episodes/" +
+            editepisodes._id,
+          newdata
+        )
         .then(async (res) => {
-          const newdata = await axios.get("http://localhost:2022/episodes/");
+          const newdata = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/episodes/"
+          );
           setepisodes(newdata.data);
         })
         .catch((err) => {

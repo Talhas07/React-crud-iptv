@@ -18,7 +18,7 @@ function Genre() {
   React.useEffect(() => {
     console.log("the use effect hook is working");
     axios
-      .get("http://localhost:2022/genres")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/genres")
       .then((response) => {
         setGenres(response.data);
       })
@@ -37,9 +37,11 @@ function Genre() {
       name: e.target.name.value,
     };
     axios
-      .post("http://localhost:2022/genres", genre)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/genres", genre)
       .then(async (res) => {
-        const genreList = await axios.get("http://localhost:2022/genres");
+        const genreList = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
+        );
         setGenres(genreList.data);
       })
       .catch((err) => {
@@ -54,9 +56,11 @@ function Genre() {
 
   const deleteGenre = async (id) => {
     axios
-      .delete(`http://localhost:2022/genres/${id}`)
+      .delete(`https://tiny-fly-sweatshirt.cyclic.cloud/genres/${id}`)
       .then(async (res) => {
-        const genreList = await axios.get("http://localhost:2022/genres");
+        const genreList = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
+        );
         setGenres(genreList.data);
       })
       .catch((err) => {
@@ -76,9 +80,14 @@ function Genre() {
       };
 
       axios
-        .patch(`http://localhost:2022/genres/${editedGenre._id}`, updatedGenre)
+        .patch(
+          `https://tiny-fly-sweatshirt.cyclic.cloud/genres/${editedGenre._id}`,
+          updatedGenre
+        )
         .then(async (res) => {
-          const genreList = await axios.get("http://localhost:2022/genres");
+          const genreList = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
+          );
           setGenres(genreList.data);
         })
         .catch((err) => {})

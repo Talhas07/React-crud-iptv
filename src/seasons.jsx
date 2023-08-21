@@ -16,7 +16,7 @@ function Seasons() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/seasons")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/seasons")
       .then((response) => {
         console.log(response.data);
         setseasons(response.data);
@@ -34,9 +34,11 @@ function Seasons() {
     };
     console.log(seasons);
     axios
-      .post("http://localhost:2022/seasons", seasons)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/seasons", seasons)
       .then(async (res) => {
-        const newdata = await axios.get("http://localhost:2022/seasons");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons"
+        );
         setseasons(newdata.data);
       })
       .finally(() => {
@@ -46,9 +48,11 @@ function Seasons() {
 
   const deleteseasons = async (id) => {
     axios
-      .delete("http://localhost:2022/seasons/" + id)
+      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + id)
       .then(async (response) => {
-        const newdata = await axios.get("http://localhost:2022/seasons");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons"
+        );
         setseasons(newdata.data);
       })
       .catch((err) => {
@@ -70,11 +74,18 @@ function Seasons() {
         description: editseasons.description,
       };
 
-      console.log("http://localhost:2022/seasons/" + editseasons._id);
+      console.log(
+        "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + editseasons._id
+      );
       axios
-        .patch("http://localhost:2022/seasons/" + editseasons._id, newdata)
+        .patch(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + editseasons._id,
+          newdata
+        )
         .then(async (res) => {
-          const newdata = await axios.get("http://localhost:2022/seasons/");
+          const newdata = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/"
+          );
           setseasons(newdata.data);
         })
         .catch((err) => {

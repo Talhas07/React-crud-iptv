@@ -18,7 +18,7 @@ function Register() {
   const navigate = useNavigate();
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/users")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/users")
       .then((response) => {
         console.log(response.data);
         setusers(response.data);
@@ -48,7 +48,10 @@ function Register() {
       console.log("sorry but this email is already registered");
     } else {
       axios
-        .post("http://localhost:2022/users/registration", user)
+        .post(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/users/registration",
+          user
+        )
         .then(async () => {
           console.log("Success");
           notification["success"]({

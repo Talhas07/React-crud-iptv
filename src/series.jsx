@@ -16,7 +16,7 @@ function Series() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/series")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/series")
       .then((response) => {
         console.log(response.data);
         setseries(response.data);
@@ -34,9 +34,11 @@ function Series() {
     };
     console.log(series);
     axios
-      .post("http://localhost:2022/series", series)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/series", series)
       .then(async (res) => {
-        const newdata = await axios.get("http://localhost:2022/series");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/series"
+        );
         setseries(newdata.data);
       })
       .finally(() => {
@@ -46,9 +48,11 @@ function Series() {
 
   const deleteseries = async (id) => {
     axios
-      .delete("http://localhost:2022/series/" + id)
+      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/series/" + id)
       .then(async (response) => {
-        const newdata = await axios.get("http://localhost:2022/series");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/series"
+        );
         setseries(newdata.data);
       })
       .catch((err) => {
@@ -70,11 +74,18 @@ function Series() {
         description: editseries.description,
       };
 
-      console.log("http://localhost:2022/series/" + editseries._id);
+      console.log(
+        "https://tiny-fly-sweatshirt.cyclic.cloud/series/" + editseries._id
+      );
       axios
-        .patch("http://localhost:2022/series/" + editseries._id, newdata)
+        .patch(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/series/" + editseries._id,
+          newdata
+        )
         .then(async (res) => {
-          const newdata = await axios.get("http://localhost:2022/series/");
+          const newdata = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/series/"
+          );
           setseries(newdata.data);
         })
         .catch((err) => {

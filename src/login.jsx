@@ -22,7 +22,7 @@ function Login() {
     };
 
     axios
-      .post("http://localhost:2022/users/login", user)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/users/login", user)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data);

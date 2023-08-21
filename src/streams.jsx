@@ -15,7 +15,7 @@ function Streams() {
   const [editstreams, seteditstreams] = React.useState(null);
   React.useEffect(() => {
     axios
-      .get("http://localhost:2022/streams")
+      .get("https://tiny-fly-sweatshirt.cyclic.cloud/streams")
       .then((response) => {
         console.log(response.data);
         setstreams(response.data);
