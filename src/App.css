@@ -19,13 +19,13 @@
   width: 100%;
   min-height: 100vh;
   margin-left: 0px;
-  box-shadow: 15px 0px 35px -7px rgba(191, 180, 180, 0.85) inset;
+  /* box-shadow: 15px 0px 35px -7px rgba(191, 180, 180, 0.85) inset; */
 }
 
 /* Ant table wrapper */
-#root .App .ant-table-wrapper {
+/* #root .App .ant-table-wrapper {
   box-shadow: 0px 0px 0px -50px rgba(0, 0, 0, 0.85);
-}
+} */
 
 /* Colgroup */
 .ant-table table colgroup {
