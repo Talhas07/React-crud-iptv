@@ -57,6 +57,7 @@ function Register() {
           notification["success"]({
             message: "User has been registered successfully",
             duration: 2,
+            placement: "bottomLeft",
           });
           navigate("/");
         });
