@@ -140,3 +140,7 @@
 #root .ant-layout-header ul {
   height: 63px;
 }
+/* changed body color */
+body {
+  background-color: #ffffff;
+}
