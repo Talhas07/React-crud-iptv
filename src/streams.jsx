@@ -31,9 +31,11 @@ function Streams() {
       time: e.target.time.value,
     };
     axios
-      .post("http://localhost:2022/streams", stream)
+      .post("https://tiny-fly-sweatshirt.cyclic.cloud/streams", stream)
       .then(async (res) => {
-        const newdata = await axios.get("http://localhost:2022/streams");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/streams"
+        );
         setstreams(newdata.data);
       })
       .finally(() => {
@@ -42,9 +44,11 @@ function Streams() {
   };
   const deletestream = async (id) => {
     axios
-      .delete("http://localhost:2022/streams/" + id)
+      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + id)
       .then(async (response) => {
-        const newdata = await axios.get("http://localhost:2022/streams");
+        const newdata = await axios.get(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/streams"
+        );
         setstreams(newdata.data);
       })
       .catch((err) => {
@@ -65,11 +69,19 @@ function Streams() {
         time: editstreams.time,
       };
 
-      console.log("http://localhost:2022/streams/" + editstreams._id, newdata);
+      console.log(
+        "https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + editstreams._id,
+        newdata
+      );
       axios
-        .patch("http://localhost:2022/streams/" + editstreams._id, newdata)
+        .patch(
+          "https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + editstreams._id,
+          newdata
+        )
         .then(async (res) => {
-          const newdata = await axios.get("http://localhost:2022/streams/");
+          const newdata = await axios.get(
+            "https://tiny-fly-sweatshirt.cyclic.cloud/streams/"
+          );
           setstreams(newdata.data);
         })
         .catch((err) => {
