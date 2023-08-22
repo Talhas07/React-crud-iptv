@@ -6,16 +6,19 @@ import {
   Button as MuiButton,
 } from "@mui/material";
 import { Table, Button as AntDButton } from "antd";
-import { Button, notification } from "antd";
+import { Button, notification, Spin } from "antd";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
-import React from "react";
 
 function Login() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const submitdata = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const user = {
       email: e.target.email.value,
       password: e.target.password.value,
@@ -24,9 +27,8 @@ function Login() {
     axios
       .post("https://tiny-fly-sweatshirt.cyclic.cloud/users/login", user)
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("token", res.data);
-
+        setLoading(false);
         notification.success({
           message: "User has been logged in successfully",
           duration: 2,
@@ -34,6 +36,7 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
+        // setLoading(false);
         if (error.response && error.response.status === 401) {
           notification.error({
             message: "Unauthorized: Please check your credentials",
@@ -43,6 +46,7 @@ function Login() {
           (e.target.email.value = ""), (e.target.password.value = "");
         } else {
           // Handle other errors
+          setLoading(false);
           console.error("An error occurred:", error);
           (e.target.email.value = ""), (e.target.password.value = "");
         }
@@ -108,6 +112,12 @@ function Login() {
           Login
         </MuiButton>
       </form>
+
+      {loading && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Spin size="large" />
+        </div>
+      )}
 
       <button
         style={{ float: "right" }}
