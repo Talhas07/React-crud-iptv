@@ -36,7 +36,7 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
-        // setLoading(false);
+        setLoading(false);
         if (error.response && error.response.status === 401) {
           notification.error({
             message: "Unauthorized: Please check your credentials",
