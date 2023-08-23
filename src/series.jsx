@@ -10,13 +10,21 @@ import axios from "axios";
 import React from "react";
 import "./App.css";
 
+const token = localStorage.getItem("token");
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
+
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
 function Series() {
   const [series, setseries] = React.useState([]);
   const [editseries, seteditseries] = React.useState(null);
 
   React.useEffect(() => {
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/series")
+      .get(apiUrl + "/series", { headers })
       .then((response) => {
         console.log(response.data);
         setseries(response.data);
@@ -34,11 +42,9 @@ function Series() {
     };
     console.log(series);
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/series", series)
+      .post(apiUrl + "/series", series, { headers })
       .then(async (res) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/series"
-        );
+        const newdata = await axios.get(apiUrl + "/series", { headers });
         setseries(newdata.data);
       })
       .finally(() => {
@@ -48,11 +54,9 @@ function Series() {
 
   const deleteseries = async (id) => {
     axios
-      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/series/" + id)
+      .delete(apiUrl + "/series/" + id, { headers })
       .then(async (response) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/series"
-        );
+        const newdata = await axios.get(apiUrl + "/series", { headers });
         setseries(newdata.data);
       })
       .catch((err) => {
@@ -74,18 +78,11 @@ function Series() {
         description: editseries.description,
       };
 
-      console.log(
-        "https://tiny-fly-sweatshirt.cyclic.cloud/series/" + editseries._id
-      );
+      console.log(apiUrl + "/series/" + editseries._id);
       axios
-        .patch(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/series/" + editseries._id,
-          newdata
-        )
+        .patch(apiUrl + "/series/" + editseries._id, newdata, { headers })
         .then(async (res) => {
-          const newdata = await axios.get(
-            "https://tiny-fly-sweatshirt.cyclic.cloud/series/"
-          );
+          const newdata = await axios.get(apiUrl + "/series/", { headers });
           setseries(newdata.data);
         })
         .catch((err) => {

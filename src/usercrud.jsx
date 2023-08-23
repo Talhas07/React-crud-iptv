@@ -10,12 +10,20 @@ import axios from "axios";
 import React from "react";
 import "./App.css";
 
+const token = localStorage.getItem("token");
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
+
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
 function Users() {
   const [users, setusers] = React.useState([]);
   const [editusers, seteditusers] = React.useState(null);
   React.useEffect(() => {
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/users")
+      .get(apiUrl + "/users")
       .then((response) => {
         console.log(response.data);
         setusers(response.data);
@@ -34,11 +42,9 @@ function Users() {
       password: e.target.password.value,
     };
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/users/registration", user)
+      .post(apiUrl + "/users/registration", user)
       .then(async (res) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/users"
-        );
+        const newdata = await axios.get(apiUrl + "/users");
         setusers(newdata.data);
       })
       .finally(() => {
@@ -50,11 +56,9 @@ function Users() {
   };
   const deleteuser = async (id) => {
     axios
-      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/users/" + id)
+      .delete(apiUrl + "/users/" + id)
       .then(async (response) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/users"
-        );
+        const newdata = await axios.get(apiUrl + "/users");
         setusers(newdata.data);
       })
       .catch((err) => {
@@ -78,18 +82,11 @@ function Users() {
         password: editusers.password,
       };
 
-      console.log(
-        "https://tiny-fly-sweatshirt.cyclic.cloud/users/" + editusers._id
-      );
+      console.log(apiUrl + "/users/" + editusers._id);
       axios
-        .patch(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/users/" + editusers._id,
-          newdata
-        )
+        .patch(apiUrl + "/users/" + editusers._id, newdata)
         .then(async (res) => {
-          const newdata = await axios.get(
-            "https://tiny-fly-sweatshirt.cyclic.cloud/users/"
-          );
+          const newdata = await axios.get(apiUrl + "/users/");
           setusers(newdata.data);
         })
         .catch((err) => {

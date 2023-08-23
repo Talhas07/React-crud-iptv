@@ -12,6 +12,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
 
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
 function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ function Login() {
     };
 
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/users/login", user)
+      .post(apiUrl + "/users/login", user)
       .then((res) => {
         localStorage.setItem("token", res.data);
         setLoading(false);

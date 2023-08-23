@@ -11,6 +11,14 @@ import {
 
 import { Table, Button as AntDButton } from "antd";
 
+const token = localStorage.getItem("token");
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
+
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
 function Genre() {
   const [genres, setGenres] = React.useState([]);
   const [editedGenre, setEditedGenre] = React.useState(null);
@@ -18,7 +26,7 @@ function Genre() {
   React.useEffect(() => {
     console.log("the use effect hook is working");
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/genres")
+      .get("${apiUrl}/genres", { headers })
       .then((response) => {
         setGenres(response.data);
       })
@@ -37,11 +45,9 @@ function Genre() {
       name: e.target.name.value,
     };
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/genres", genre)
+      .post("${apiUrl}/genres", genre, { headers })
       .then(async (res) => {
-        const genreList = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
-        );
+        const genreList = await axios.get("${apiUrl}/genres", { headers });
         setGenres(genreList.data);
       })
       .catch((err) => {
@@ -56,11 +62,9 @@ function Genre() {
 
   const deleteGenre = async (id) => {
     axios
-      .delete(`https://tiny-fly-sweatshirt.cyclic.cloud/genres/${id}`)
+      .delete(apiUrl + "/genres/${id}", { headers })
       .then(async (res) => {
-        const genreList = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
-        );
+        const genreList = await axios.get("${apiUrl}/genres", { headers });
         setGenres(genreList.data);
       })
       .catch((err) => {
@@ -80,14 +84,9 @@ function Genre() {
       };
 
       axios
-        .patch(
-          `https://tiny-fly-sweatshirt.cyclic.cloud/genres/${editedGenre._id}`,
-          updatedGenre
-        )
+        .patch(apiUrl + "/genres/${editedGenre._id}", updatedGenre, { headers })
         .then(async (res) => {
-          const genreList = await axios.get(
-            "https://tiny-fly-sweatshirt.cyclic.cloud/genres"
-          );
+          const genreList = await axios.get("${apiUrl}/genres", { headers });
           setGenres(genreList.data);
         })
         .catch((err) => {})

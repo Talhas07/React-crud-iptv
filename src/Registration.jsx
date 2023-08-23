@@ -13,12 +13,20 @@ import React from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 
+const token = localStorage.getItem("token");
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
+
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
 function Register() {
   const [users, setusers] = React.useState([]);
   const navigate = useNavigate();
   React.useEffect(() => {
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/users")
+      .get(apiUrl + "/users")
       .then((response) => {
         console.log(response.data);
         setusers(response.data);
@@ -47,20 +55,15 @@ function Register() {
 
       console.log("sorry but this email is already registered");
     } else {
-      axios
-        .post(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/users/registration",
-          user
-        )
-        .then(async () => {
-          console.log("Success");
-          notification["success"]({
-            message: "User has been registered successfully",
-            duration: 2,
-            placement: "bottomLeft",
-          });
-          navigate("/");
+      axios.post(apiUrl + "/users/registration", user).then(async () => {
+        console.log("Success");
+        notification["success"]({
+          message: "User has been registered successfully",
+          duration: 2,
+          placement: "bottomLeft",
         });
+        navigate("/");
+      });
     }
   };
 

@@ -13,13 +13,14 @@ const Nav = (props) => {
   } = theme.useToken();
   return (
     <Layout className="layout">
-      <Header
-        style={{
-          display: "inline-block",
-          alignItems: "center",
-        }}
-      >
-        <Menu theme="dark" mode="horizontal">
+      <Header>
+        <Menu
+          style={{
+            display: "flex",
+          }}
+          theme="dark"
+          mode="horizontal"
+        >
           <span style={{ marginRight: "20px" }}>IPTV CRUD </span>
 
           <Menu.Item onClick={() => navigate("/")} key="/streams">

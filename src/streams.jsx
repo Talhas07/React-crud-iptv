@@ -10,12 +10,27 @@ import axios from "axios";
 import React from "react";
 import "./App.css";
 
+const token = localStorage.getItem("token");
+const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
+
 function Streams() {
   const [streams, setstreams] = React.useState([]);
   const [editstreams, seteditstreams] = React.useState(null);
+
   React.useEffect(() => {
+    // const token = localStorage.getItem("token");
+
+    // const headers = {
+    //   Authorization: `Bearer ${token}`,
+    // };
+
+    // const apiUrl = "http://localhost:2022";
+
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/streams")
+      .get(apiUrl + "/streams", { headers })
       .then((response) => {
         console.log(response.data);
         setstreams(response.data);
@@ -31,11 +46,9 @@ function Streams() {
       time: e.target.time.value,
     };
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/streams", stream)
+      .post(apiUrl + "/streams", stream, { headers })
       .then(async (res) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/streams"
-        );
+        const newdata = await axios.get(apiUrl + "/streams", { headers });
         setstreams(newdata.data);
       })
       .finally(() => {
@@ -44,11 +57,9 @@ function Streams() {
   };
   const deletestream = async (id) => {
     axios
-      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + id)
+      .delete(apiUrl + "/streams/" + id, { headers })
       .then(async (response) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/streams"
-        );
+        const newdata = await axios.get(apiUrl + "/streams", { headers });
         setstreams(newdata.data);
       })
       .catch((err) => {
@@ -69,19 +80,11 @@ function Streams() {
         time: editstreams.time,
       };
 
-      console.log(
-        "https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + editstreams._id,
-        newdata
-      );
+      console.log(apiUrl + "/streams/" + editstreams._id, newdata);
       axios
-        .patch(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/streams/" + editstreams._id,
-          newdata
-        )
+        .patch(apiUrl + "/streams/" + editstreams._id, newdata, { headers })
         .then(async (res) => {
-          const newdata = await axios.get(
-            "https://tiny-fly-sweatshirt.cyclic.cloud/streams/"
-          );
+          const newdata = await axios.get(apiUrl + "/streams/", { headers });
           setstreams(newdata.data);
         })
         .catch((err) => {

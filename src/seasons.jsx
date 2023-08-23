@@ -14,9 +14,17 @@ function Seasons() {
   const [seasons, setseasons] = React.useState([]);
   const [editseasons, seteditseasons] = React.useState(null);
 
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const apiUrl = "https://tiny-fly-sweatshirt.cyclic.cloud";
+
   React.useEffect(() => {
     axios
-      .get("https://tiny-fly-sweatshirt.cyclic.cloud/seasons")
+      .get(apiUrl + "/seasons", { headers })
       .then((response) => {
         console.log(response.data);
         setseasons(response.data);
@@ -34,11 +42,9 @@ function Seasons() {
     };
     console.log(seasons);
     axios
-      .post("https://tiny-fly-sweatshirt.cyclic.cloud/seasons", seasons)
+      .post(apiUrl + "/seasons", seasons, { headers })
       .then(async (res) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons"
-        );
+        const newdata = await axios.get(apiUrl + "/seasons", { headers });
         setseasons(newdata.data);
       })
       .finally(() => {
@@ -48,11 +54,9 @@ function Seasons() {
 
   const deleteseasons = async (id) => {
     axios
-      .delete("https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + id)
+      .delete(apiUrl + "/seasons/" + id, { headers })
       .then(async (response) => {
-        const newdata = await axios.get(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons"
-        );
+        const newdata = await axios.get(apiUrl + "/seasons", { headers });
         setseasons(newdata.data);
       })
       .catch((err) => {
@@ -74,18 +78,11 @@ function Seasons() {
         description: editseasons.description,
       };
 
-      console.log(
-        "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + editseasons._id
-      );
+      console.log(apiUrl + "/seasons/" + editseasons._id);
       axios
-        .patch(
-          "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/" + editseasons._id,
-          newdata
-        )
+        .patch(apiUrl + "/seasons/" + editseasons._id, newdata, { headers })
         .then(async (res) => {
-          const newdata = await axios.get(
-            "https://tiny-fly-sweatshirt.cyclic.cloud/seasons/"
-          );
+          const newdata = await axios.get(apiUrl + "/seasons/", { headers });
           setseasons(newdata.data);
         })
         .catch((err) => {
